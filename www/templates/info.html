@@ -1,0 +1,11 @@
+ <ion-view view-title="Info">
+        <ion-content>
+        	
+	<ul class="list">
+	    <li class="item" ng-repeat="job in jobs">
+	      {{job.name}}
+	      <div ng-bind-html="job.color"></div>
+	    </li>
+	</ul>
+    </ion-content>
+</ion-view>
