@@ -2,7 +2,7 @@
         <ion-content>
         	
 	<ul class="list">
-	    <li class="item" ng-repeat="job in jobs">
+	    <li class="item" ng-repeat="job in jobs" ng-click="getInfo(job)">
 	      {{job.name}}
 	      <div ng-bind-html="job.color"></div>
 	    </li>

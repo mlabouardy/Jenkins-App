@@ -5,15 +5,6 @@ angular.module('starter.services', ['ngCookies','ionic','ngCordova'])
 	return {
 		getProjects: function (url) {
 			return $http.get(url+'/api/json?depth=1');
-		},
-		getProjectInfo:function(url,name){
-			$http.get(url+'?depth=1').success(function(data){
-				var jobs=data.jobs;
-				for(var i=0;i<jobs.length;i++){
-					if(jobs[i].displayName==name)
-						return jobs[i];
-				}
-			});
 		}
 	};
 })
