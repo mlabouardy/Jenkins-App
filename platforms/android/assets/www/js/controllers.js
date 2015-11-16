@@ -12,6 +12,11 @@ angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
 		      templateUrl: "templates/info.html",
 		      controller: "infoCtrl"
 		    })
+		    .state('details', {
+		      url: "/details/?url?name",
+		      templateUrl: "templates/details.html",
+		      controller: "detailsCtrl"
+		    })
 		    .state('create', {
 		      url: "/create",
 		      templateUrl: "templates/create.html",
@@ -22,8 +27,7 @@ angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
     .controller('homeCtrl',function($scope, Database, $state){
 		$scope.items=Database.select();
 
-		$scope.test=function(item){
-			console.log('ok+++'+item.url);
+		$scope.getInfo=function(item){
 			$state.go('info',{jenkinsurl:item.url});
 		}
 	})
@@ -34,10 +38,24 @@ angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
     		$state.go('home');
 		}
 	})
-	.controller('infoCtrl',function($scope, Jenkins, $stateParams){
-		console.log('test '+$stateParams.jenkinsurl);
+	.controller('detailsCtrl',function($scope,  $stateParams, Jenkins){
+		console.log('ok test '+$stateParams.name+" "+$stateParams.url);
+		$scope.builds=[];
+		Jenkins.getProjects($stateParams.url).success(function(data){
+				var jobs=data.jobs;
+				for(var i=0;i<jobs.length;i++){
+					if(jobs[i].displayName==$stateParams.name){
+						$scope.job=jobs[i];
+						if($scope.job.description==""){
+							$scope.job.description="No description available";
+						}
+					}
+				}
+		});
+		
+	})
+	.controller('infoCtrl',function($scope, Jenkins, $stateParams, $state){
 		Jenkins.getProjects($stateParams.jenkinsurl).success(function(data){
-			console.log('data '+data);
 			$scope.jobs=[];
 	   		for(var i=0;i<data.jobs.length;i++){
 	   			var color;
@@ -54,4 +72,8 @@ angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
 	   			})
 	   		}
 		});
+
+		$scope.getInfo=function(job){
+			$state.go('details',{url: $stateParams.jenkinsurl,name: job.name});
+		}
 	});

@@ -1,0 +1,51 @@
+ <ion-view view-title="Details">
+ <ion-content>
+	<div class="card">
+  <div class="item item-text-wrap  item-icon-left">
+    <h3>{{job.displayName}}</h3>
+    <h4>{{job.description}}</h4>
+    <a href="{{build.url}}"><i class="icon ion-share balanced"></i></a>
+  </div>
+</div>
+ <div class="list card">
+ 	<div class="item">
+ 		<span class="badge badge-royal">{{job.lastBuild.number}}</span>
+ 		Last build
+ 	</div>
+ 	<div class="item">
+ 		<span class="badge badge-assertive">{{job.lastFailedBuild.number}}</span>
+ 		Last failed build
+ 	</div>
+ 	<div class="item">
+ 		<span class="badge badge-balanced">{{job.lastCompletedBuild.number}}</span>
+ 		Last completed build
+ 	</div>
+ 	<div class="item">
+ 		<span class="badge badge-balanced">{{job.lastStableBuild.number}}</span>
+ 		Last stable build
+ 	</div>
+ 	<div class="item">
+ 		<span class="badge badge-balanced">{{job.lastSuccessfulBuild.number}}</span>
+ 		Last successful build
+ 	</div>
+ 	<div class="item">
+ 		<span class="badge badge-energized">{{job.lastUnstableBuild.number}}</span>
+ 		Last unstable build
+ 	</div>
+ 	<div class="item">
+ 		<span class="badge badge-assertive">{{job.lastUnsuccessfulBuild.number}}</span>
+ 		Last unsuccessful build
+ 	</div>
+ </div>
+ <div class="list card">
+ <div class="item item-divider item-balanced item-icon-left">
+ 	<i class="icon ion-ios-sunny"></i>
+ 	Build History
+ </div>
+ <div class="item item-icon-right" ng-repeat="build in job.builds">
+ Build {{build.number}}
+ <a href="{{build.url}}"><i class="icon ion-share balanced"></i></a>
+</div>
+</div> 
+</ion-content>
+</ion-view>
