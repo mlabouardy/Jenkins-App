@@ -4,9 +4,9 @@ Mobile application to monitor Jenkins
 
 #Stack of technologies
 
-Ionic
-Cordova
-AngularJS
-NodeJS
-ChartJS
-SQlite
+Ionic <br/>
+Cordova <br/>
+AngularJS <br/>
+NodeJS <br/>
+ChartJS <br/>
+SQlite <br/>
