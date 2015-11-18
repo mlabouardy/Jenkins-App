@@ -1,10 +1,16 @@
  <ion-view view-title="Details">
  <ion-content>
+ 	<div class="button-bar padding">
+ 	  <a class="button button-balanced icon ion-arrow-right-b button-small" ng-click="build()"></a>
+ 	   <a class="button button-assertive icon ion-trash-a button-small" ng-click="delete()"></a>
+ 	    <a class="button button-balanced icon ion-checkmark-circled button-small" ng-click="enable()"></a>
+ 	     <a class="button button-assertive icon ion-close-circled button-small" ng-click="disable()"></a>
+	</div>
 	<div class="card">
   <div class="item item-text-wrap  item-icon-right">
     <h3>{{job.displayName}}</h3>
     <h4>{{job.description}}</h4>
-    <a ng-click="build()"><i class="icon ion-arrow-right-b balanced"></i></a>
+    <a href="{{job.url}}"><i class="icon ion-share balanced"></i></a>
   </div>
 </div>
  <div class="list card">

@@ -1,0 +1,41 @@
+ <ion-view view-title="Intro">
+        <ion-content>
+        	
+	<ion-slide-box on-slide-changed="slideChanged(index)">
+          <ion-slide>
+            <h3>Thank you for choosing Jenkins Monitor !</h3>
+            <div id="logo">
+              <img src="img/icon.png" width="152" height="152">
+            </div>
+            <p>
+              We've worked super hard to make you happy.
+            </p>
+            <p>
+              But if you are angry, too bad.
+            </p>
+          </ion-slide>
+          <ion-slide>
+            <h3>Using Jenkins Monitor</h3>
+            
+            <div id="list">
+              <h5>What can you do with it?:</h5>
+              <ol>
+                <li>Retrieve information from Jenkins</li>
+                <li>Trigger a new build</li>
+                <li>Delete/Enable a job</li>
+              </ol>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <h3>How to use?</h3>
+            <p>
+              You need to enable CORS on Jenkins.
+            </p>
+            <p>
+              Install CORS Filter Plugin this plugin supports cross-site http requests to Jenkins.
+            </p>
+            <button class="button button-balanced button-outline" ng-click="start()">Start</button>
+          </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+</ion-view>

@@ -5,6 +5,9 @@ angular.module('starter.services', ['ngCookies','ionic','ngCordova'])
 	return {
 		getProjects: function (url) {
 			return $http.get(url+'/api/json?depth=1');
+		},
+		buildProject:function(url, name){
+			return $http.get(url+'/job/'+name+'/build');
 		}
 	};
 })

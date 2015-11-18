@@ -8,6 +8,15 @@ angular.module('starter.services', ['ngCookies','ionic','ngCordova'])
 		},
 		buildProject:function(url, name){
 			return $http.get(url+'/job/'+name+'/build');
+		},
+		deleteProject:function(url, name){
+			return $http.post(url+'/job/'+name+'/doDelete');
+		},
+		enableProject:function(url, name){
+			return $http.post(url+'/job/'+name+'/enable');
+		},
+		disableProject:function(url, name){
+			return $http.post(url+'/job/'+name+'/disable');
 		}
 	};
 })

@@ -2,8 +2,13 @@
 angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
     .config(function($stateProvider, $urlRouterProvider){
     	 $stateProvider
-		    .state('home', {
+    	 	.state('intro', {
 		      url: "/",
+		      templateUrl: "templates/intro.html",
+		      controller: "introCtrl"
+		    })
+		    .state('home', {
+		      url: "/home",
 		      templateUrl: "templates/list.html",
 		      controller: "homeCtrl"
 		    })
@@ -24,6 +29,11 @@ angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
 		    });
 		    $urlRouterProvider.otherwise("/");;
     })
+    .controller('introCtrl',function($scope, $state){
+		$scope.start=function(){
+			$state.go('home');
+		}
+	})
     .controller('homeCtrl',function($scope, Database, $state){
 		$scope.items=Database.select();
 
@@ -38,7 +48,7 @@ angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
     		$state.go('home');
 		}
 	})
-	.controller('detailsCtrl',function($scope,  $stateParams, Jenkins, $ionicPopup){
+	.controller('detailsCtrl',function($scope,  $stateParams, Jenkins, $ionicPopup, $state){
 		console.log('ok test '+$stateParams.name+" "+$stateParams.url);
 		$scope.builds=[];
 		Jenkins.getProjects($stateParams.url).success(function(data){
@@ -65,6 +75,70 @@ angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
 			   confirmPopup.then(function(res) {
 			     if(res) {
 			     	Jenkins.buildProject($stateParams.url, $stateParams.name).success(function(){	
+			       		console.log('You are sure');
+					});
+			     } else {
+			       console.log('You are not sure');
+			     }
+			   });
+			
+		}
+
+		$scope.delete=function(){
+			var confirmPopup = $ionicPopup.confirm({
+			     title: $stateParams.name,
+			     template: 'Are you sure you want to delete this project?',
+			     cancelText: 'No',
+        		 okText: 'Yes',
+        		 okType: 'button-balanced',
+        		 cancelType:'button-assertive'
+			   });
+			   confirmPopup.then(function(res) {
+			     if(res) {
+			     	Jenkins.deleteProject($stateParams.url, $stateParams.name).success(function(){	
+			       		console.log('You are sure');
+			       		$state.go('info',{jenkinsurl:$stateParams.url});
+					});
+			     } else {
+			       console.log('You are not sure');
+			     }
+			   });
+			
+		}
+
+		$scope.enable=function(){
+			var confirmPopup = $ionicPopup.confirm({
+			     title: $stateParams.name,
+			     template: 'Are you sure you want to enable this project?',
+			     cancelText: 'No',
+        		 okText: 'Yes',
+        		 okType: 'button-balanced',
+        		 cancelType:'button-assertive'
+			   });
+			   confirmPopup.then(function(res) {
+			     if(res) {
+			     	Jenkins.enableProject($stateParams.url, $stateParams.name).success(function(){	
+			       		console.log('You are sure');
+					});
+			     } else {
+			       console.log('You are not sure');
+			     }
+			   });
+			
+		}
+
+		$scope.disable=function(){
+			var confirmPopup = $ionicPopup.confirm({
+			     title: $stateParams.name,
+			     template: 'Are you sure you want to disable this project?',
+			     cancelText: 'No',
+        		 okText: 'Yes',
+        		 okType: 'button-balanced',
+        		 cancelType:'button-assertive'
+			   });
+			   confirmPopup.then(function(res) {
+			     if(res) {
+			     	Jenkins.disableProject($stateParams.url, $stateParams.name).success(function(){	
 			       		console.log('You are sure');
 					});
 			     } else {
