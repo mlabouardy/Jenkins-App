@@ -38,7 +38,7 @@ angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
     		$state.go('home');
 		}
 	})
-	.controller('detailsCtrl',function($scope,  $stateParams, Jenkins){
+	.controller('detailsCtrl',function($scope,  $stateParams, Jenkins, $ionicPopup){
 		console.log('ok test '+$stateParams.name+" "+$stateParams.url);
 		$scope.builds=[];
 		Jenkins.getProjects($stateParams.url).success(function(data){
@@ -52,6 +52,27 @@ angular.module('starter.controllers', ['ngCookies','ionic','ngCordova'])
 					}
 				}
 		});
+
+		$scope.build=function(){
+			var confirmPopup = $ionicPopup.confirm({
+			     title: $stateParams.name,
+			     template: 'Are you sure you want to build this project?',
+			     cancelText: 'No',
+        		 okText: 'Yes',
+        		 okType: 'button-balanced',
+        		 cancelType:'button-assertive'
+			   });
+			   confirmPopup.then(function(res) {
+			     if(res) {
+			     	Jenkins.buildProject($stateParams.url, $stateParams.name).success(function(){	
+			       		console.log('You are sure');
+					});
+			     } else {
+			       console.log('You are not sure');
+			     }
+			   });
+			
+		}
 		
 	})
 	.controller('infoCtrl',function($scope, Jenkins, $stateParams, $state){
